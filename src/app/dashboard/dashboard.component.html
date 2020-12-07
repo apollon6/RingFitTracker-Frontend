@@ -1,0 +1,25 @@
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="250px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>{{card.title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div *ngIf="card.title === '活動レポート'">
+            <app-report-activity></app-report-activity>
+          </div>
+          <div *ngIf="card.title === '活動時間'">
+            <app-chart-activity-time></app-chart-activity-time>
+          </div>
+          <div *ngIf="card.title === '消費カロリー'">
+            <app-chart-burned-calories></app-chart-burned-calories>
+          </div>
+          <div *ngIf="card.title === '走行距離'">
+            <app-chart-ran-distance></app-chart-ran-distance>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

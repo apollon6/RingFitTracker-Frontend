@@ -1,0 +1,16 @@
+.comment {
+    text-align : left;
+}
+.total-container {
+    position: relative;
+    top: 15px;
+}
+.good {
+    color: #2dca8f
+}
+.bad {
+    color: #fe7878
+}
+.mat-column-evaluation{
+    flex: 0 0 50px;
+}

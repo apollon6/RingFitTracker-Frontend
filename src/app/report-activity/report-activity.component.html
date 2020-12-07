@@ -1,0 +1,65 @@
+<div class="summary-container mat-elevation-z1">
+    <mat-table #table [dataSource]="summarySource">
+
+        <ng-container matColumnDef="evaluation">
+            <mat-header-cell *matHeaderCellDef>評価</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+                <div class="good" *ngIf="element.evaluation === 'good'">
+                    <mat-icon>thumb_up</mat-icon>
+                </div>
+                <div class="bad" *ngIf="element.evaluation === 'bad'">
+                    <mat-icon>thumb_down</mat-icon>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef>コメント</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <div class="comment">
+                    {{element.comment}}
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="summaryColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: summaryColumns;"></mat-row>
+    </mat-table>
+</div>
+
+<div class="total-container mat-elevation-z1">
+    <mat-table #table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="period">
+            <mat-header-cell *matHeaderCellDef>対象期間</mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              {{element.period}} 
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="activityTime">
+            <mat-header-cell *matHeaderCellDef>合計活動時間</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                {{element.activityTime}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="burnedCalories">
+            <mat-header-cell *matHeaderCellDef>合計消費カロリー</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                {{element.burnedCalories}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ranDistance">
+            <mat-header-cell *matHeaderCellDef>合計走行距離</mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                {{element.ranDistance}}
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>
+    
