@@ -19,7 +19,7 @@ export class ManageActivityComponent implements OnInit {
   private disableSearchButton: boolean = true;
   private disableUpdateButton: boolean = true;
   
-  constructor(private breakpointObserver: BreakpointObserver, public datePipe: DatePipe) {}
+  constructor(private breakpointObserver: BreakpointObserver, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
   }
