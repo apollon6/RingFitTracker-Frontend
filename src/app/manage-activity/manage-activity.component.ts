@@ -32,6 +32,8 @@ export class ManageActivityComponent implements OnInit {
   changeField(eevent: any) {
     if (this.activityTime  && this.burnedCalories && this.ranDistance) {
       this.disableUpdateButton = false;
+    } else {
+      this.disableUpdateButton = true;
     }
   }
 
