@@ -1,0 +1,41 @@
+.grid-container {
+    margin: 20px;
+}
+.dashboard-card {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+}
+.dashboard-card-content {
+    text-align: left;
+}
+.search-form {
+    top: 10px;
+}
+.activityTime-form {
+    top: 10px;
+}
+.burnedCalories-form {
+    top: 10px;
+    left: 10px;
+}
+.ranDistance-form {
+    top: 10px;
+    left: 20px;
+}
+.search {
+    top: 10px;
+}
+.clear {
+    top: 10px;
+    left: 10px;
+}
+.update {
+    top: 10px;
+}
+.delete {
+    top: 10px;
+    left: 10px;
+}

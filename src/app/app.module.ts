@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +17,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table'  
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChartsModule } from 'ng2-charts';
 import { ChartActivityTimeComponent } from './chart-activity-time/chart-activity-time.component';
@@ -23,6 +29,7 @@ import { ChartRanDistanceComponent } from './chart-ran-distance/chart-ran-distan
 import { ReportActivityComponent } from './report-activity/report-activity.component';
 
 import { DataService } from './app.data.service';
+import { ManageActivityComponent } from './manage-activity/manage-activity.component';
  
 @NgModule({
   declarations: [
@@ -31,10 +38,12 @@ import { DataService } from './app.data.service';
     ChartActivityTimeComponent,
     ChartBurnedCaloriesComponent,
     ChartRanDistanceComponent,
-    ReportActivityComponent
+    ReportActivityComponent,
+    ManageActivityComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -46,10 +55,15 @@ import { DataService } from './app.data.service';
     MatMenuModule,
     MatButtonModule,
     MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     LayoutModule,
     ChartsModule
   ],
   providers: [
+    DatePipe,
     DataService
   ],
   bootstrap: [AppComponent]
