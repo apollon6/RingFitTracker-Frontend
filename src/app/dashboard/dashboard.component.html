@@ -6,16 +6,16 @@
           <mat-card-title>{{card.title}}</mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div *ngIf="card.title === '活動レポート'">
+          <div *ngIf="card.title === '活動レポート' && showReport">
             <app-report-activity></app-report-activity>
           </div>
-          <div *ngIf="card.title === '活動時間'">
+          <div *ngIf="card.title === '活動時間' && showAcitivityTime">
             <app-chart-activity-time></app-chart-activity-time>
           </div>
-          <div *ngIf="card.title === '消費カロリー'">
+          <div *ngIf="card.title === '消費カロリー' && showBurnedCalories">
             <app-chart-burned-calories></app-chart-burned-calories>
           </div>
-          <div *ngIf="card.title === '走行距離'">
+          <div *ngIf="card.title === '走行距離' && showRanDistance">
             <app-chart-ran-distance></app-chart-ran-distance>
           </div>
         </mat-card-content>

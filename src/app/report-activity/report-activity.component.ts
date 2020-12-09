@@ -14,14 +14,6 @@ export interface Summery {
   comment: string;
 }
 
-const ELEMENT_DATA = [
-  { period: '11/27~12/3', activityTime: '1時間30分', burnedCalories: '500kcal', ranDistance: '5.00km' }
-];
-
-const SUMMERY_DATA = [
-  { evaluation: 'bad', comment: '先週（11/20~11/26）と比較して、合計活動時間は○○%増、合計消費カロリーは○○%減、合計走行距離は○○%減です。' }
-];
-
 @Component({
   selector: 'app-report-activity',
   templateUrl: './report-activity.component.html',
@@ -29,11 +21,27 @@ const SUMMERY_DATA = [
 })
 export class ReportActivityComponent implements OnInit {
 
+  ELEMENT_DATA = [
+    { 
+      period: this.dataService.period, 
+      activityTime: this.dataService.totalActivityTime, 
+      burnedCalories: this.dataService.totalBurnedCalories, 
+      ranDistance: this.dataService.totalRanDistance 
+    }
+  ];
+  
+  SUMMERY_DATA = [
+    { 
+      evaluation: 'bad', 
+      comment: '先週（11/20~11/26）と比較して、合計活動時間は○○%増、合計消費カロリーは○○%減、合計走行距離は○○%減です。' 
+    }
+  ];
+
   displayedColumns = ['period', 'activityTime', 'burnedCalories', 'ranDistance'];
-  dataSource = ELEMENT_DATA;
+  dataSource = this.ELEMENT_DATA;
 
   summaryColumns = ['evaluation', 'comment'];
-  summarySource = SUMMERY_DATA;
+  summarySource = this.SUMMERY_DATA;
 
   constructor(private dataService: DataService) {}
 

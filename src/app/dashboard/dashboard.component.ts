@@ -35,6 +35,11 @@ interface Activities {
 })
 export class DashboardComponent implements OnInit {
 
+  private showReport: boolean = false;
+  private showAcitivityTime: boolean = false;
+  private showBurnedCalories: boolean = false;
+  private showRanDistance: boolean = false;
+
   constructor(
     private breakpointObserver: BreakpointObserver, 
     private dataService: DataService, 
@@ -70,6 +75,10 @@ export class DashboardComponent implements OnInit {
     let response = this.activitiesService.getActivities();
     response.subscribe(res => {
       const activities = res as Activities;
+      this.dataService.period = activities["report"]["period"];
+      this.dataService.totalActivityTime = activities["report"]["activityTime"];
+      this.dataService.totalBurnedCalories = activities["report"]["burnedCalories"];
+      this.dataService.totalRanDistance = activities["report"]["ranDistance"];
       let count = 0;
       for (let activity of activities["activities"]) {
         if (activity["activityDate"] === targetDates[count]) {
@@ -79,12 +88,17 @@ export class DashboardComponent implements OnInit {
         }
         count++;
       }
+      this.dataService.activityTime = activityTime;
+      this.dataService.burnedCalories = burnedCalories;
+      this.dataService.ranDistance = ranDistance;
+
+      this.showReport = true;
+      this.showAcitivityTime = true;
+      this.showBurnedCalories = true;
+      this.showRanDistance = true;
+
+      this.overlayRef.detach();
     });
-    
-    this.dataService.activityTime = activityTime;
-    this.dataService.burnedCalories = burnedCalories;
-    this.dataService.ranDistance = ranDistance;
-    this.overlayRef.detach();
   }
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(

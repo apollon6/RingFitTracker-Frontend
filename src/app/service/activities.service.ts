@@ -29,11 +29,5 @@ export class ActivitiesService {
 
   getActivities(){
     return this.http.get("http://localhost:4000/api/activities");
-    /*
-    .subscribe(response => {
-        const activities = response as Activities;
-        console.log(activities["report"]["period"]);
-    });
-    */
   }
 }
