@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChartsModule } from 'ng2-charts';
 import { ChartActivityTimeComponent } from './chart-activity-time/chart-activity-time.component';
@@ -43,6 +46,7 @@ import { ManageActivityComponent } from './manage-activity/manage-activity.compo
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -59,6 +63,8 @@ import { ManageActivityComponent } from './manage-activity/manage-activity.compo
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule,
+    OverlayModule,
     LayoutModule,
     ChartsModule
   ],

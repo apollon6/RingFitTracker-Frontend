@@ -20,15 +20,7 @@ export class ChartActivityTimeComponent implements OnInit {
   barChartOptions: ChartOptions = {
     responsive: true,
   };
-  barChartLabels: Label[] = [
-    '11/27',
-    '11/28',
-    '11/29',
-    '11/30',
-    '12/1',
-    '12/2',
-    '12/3'
-  ];
+  barChartLabels: Label[] = this.dataService.activityDate;
   barChartColors: Color[] = [
     {
       borderColor: 'black',

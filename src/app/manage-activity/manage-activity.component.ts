@@ -29,7 +29,7 @@ export class ManageActivityComponent implements OnInit {
     this.disableSearchButton = false;
   }
 
-  changeField(eevent: any) {
+  changeField(event: any) {
     if (this.activityTime  && this.burnedCalories && this.ranDistance) {
       this.disableUpdateButton = false;
     } else {
