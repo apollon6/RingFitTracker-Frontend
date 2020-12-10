@@ -9,7 +9,7 @@
                     <div *ngIf="card.title === '活動記録/検索'">
                         <mat-form-field appearance="fill" class="search-form">
                             <mat-label>活動日を入力</mat-label>
-                            <input class="activityDate" [(ngModel)]="activityDate" matInput [matDatepicker]="picker" (ngModelChange)="changeActivityDate($event)">
+                            <input class="activityDate" [(ngModel)]="activityDate" matInput required [matDatepicker]="picker" (ngModelChange)="changeActivityDate($event)">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -21,18 +21,22 @@
                     <div *ngIf="card.title === '活動記録/更新'">
                         <mat-form-field appearance="fill" class="activityTime-form">
                             <mat-label>活動時間を入力</mat-label>
-                            <input class="activityTime" [(ngModel)]="activityTime" matInput [disabled]="disableField" (ngModelChange)="changeField($event)">
+                            <input class="activityTime" [(ngModel)]="activityTime" matInput #validateActivityTime="ngModel" required
+                             [disabled]="disableField" (ngModelChange)="changeField($event)" pattern="{{activityTimePattern}}">
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="burnedCalories-form">
                             <mat-label>消費カロリーを入力</mat-label>
-                            <input class="burnedCalories" [(ngModel)]="burnedCalories" matInput [disabled]="disableField" (ngModelChange)="changeField($event)">
+                            <input class="burnedCalories" [(ngModel)]="burnedCalories" matInput #validateBurnedCalories="ngModel" required
+                             [disabled]="disableField" (ngModelChange)="changeField($event)" pattern="{{burnedCaloriesPattern}}">
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="ranDistance-form">
                             <mat-label>走行距離を入力</mat-label>
-                            <input class="ranDistance" [(ngModel)]="ranDistance" matInput [disabled]="disableField" (ngModelChange)="changeField($event)">
+                            <input class="ranDistance" [(ngModel)]="ranDistance" matInput #validateRanDistance="ngModel" required
+                             [disabled]="disableField" (ngModelChange)="changeField($event)" pattern="{{ranDistancePattern}}">
                         </mat-form-field>
                         <div>
-                            <button class="update" mat-raised-button color="primary" [disabled]="disableUpdateButton" (click)="update()">更新</button>
+                            <button class="update" mat-raised-button color="primary" (click)="update()"
+                             [disabled]="disableUpdateButton || (validateActivityTime.errors || validateBurnedCalories.errors || validateRanDistance.errors)">更新</button>
                             <!--<button class="delete" mat-raised-button color="warn">削除</button>-->
                         </div>
                     </div>
