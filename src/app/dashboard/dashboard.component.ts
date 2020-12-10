@@ -17,7 +17,6 @@ interface Activity {
 }
 
 interface Report {
-  period: string;
   activityTime: string;
   burnCalories: string;
   ranDistance: string;
@@ -75,19 +74,26 @@ export class DashboardComponent implements OnInit {
     let response = this.activitiesService.getActivities();
     response.subscribe(res => {
       const activities = res as Activities;
-      this.dataService.period = activities["report"]["period"];
+      this.dataService.evaluation = activities["report"]["evaluation"];
       this.dataService.totalActivityTime = activities["report"]["activityTime"];
       this.dataService.totalBurnedCalories = activities["report"]["burnedCalories"];
       this.dataService.totalRanDistance = activities["report"]["ranDistance"];
       let count = 0;
       for (let activity of activities["activities"]) {
-        if (activity["activityDate"] === targetDates[count]) {
-          activityTime.push(activity["activityTime"]);
-          burnedCalories.push(activity["burnedCalories"]);
-          ranDistance.push(activity["ranDistance"]);
+        if (activity["activityDate"] !== targetDates[count]) {
+          activityTime.push("0");
+          burnedCalories.push("0");
+          ranDistance.push("0");
+          count++;
         }
+        activityTime.push(activity["activityTime"]);
+        burnedCalories.push(activity["burnedCalories"]);
+        ranDistance.push(activity["ranDistance"]);
         count++;
       }
+      this.dataService.period = 
+        this.datePipe.transform(targetDates[0], "yyyy年MM月dd日").toString() + " 〜 " + 
+        this.datePipe.transform(targetDates[6], "yyyy年MM月dd日").toString();
       this.dataService.activityTime = activityTime;
       this.dataService.burnedCalories = burnedCalories;
       this.dataService.ranDistance = ranDistance;

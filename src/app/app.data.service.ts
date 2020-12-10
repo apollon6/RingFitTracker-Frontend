@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DataService {
   public period: string;
+  public evaluation: string;
   public totalActivityTime: string;
   public totalBurnedCalories: string;
   public totalRanDistance: string;

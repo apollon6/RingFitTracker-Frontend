@@ -1,23 +1,11 @@
 <div class="summary-container mat-elevation-z1">
     <mat-table #table [dataSource]="summarySource">
 
-        <ng-container matColumnDef="evaluation">
-            <mat-header-cell *matHeaderCellDef>評価</mat-header-cell>
-            <mat-cell *matCellDef="let element"> 
-                <div class="good" *ngIf="element.evaluation === 'good'">
-                    <mat-icon>thumb_up</mat-icon>
-                </div>
-                <div class="bad" *ngIf="element.evaluation === 'bad'">
-                    <mat-icon>thumb_down</mat-icon>
-                </div>
-            </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="comment">
-            <mat-header-cell *matHeaderCellDef>コメント</mat-header-cell>
+        <ng-container matColumnDef="period">
+            <mat-header-cell *matHeaderCellDef>対象期間</mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <div class="comment">
-                    {{element.comment}}
+                <div class="period">
+                    {{element.period}}
                 </div>
             </mat-cell>
         </ng-container>
@@ -30,10 +18,15 @@
 <div class="total-container mat-elevation-z1">
     <mat-table #table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="period">
-            <mat-header-cell *matHeaderCellDef>対象期間</mat-header-cell>
+        <ng-container matColumnDef="evaluation">
+            <mat-header-cell *matHeaderCellDef>評価</mat-header-cell>
             <mat-cell *matCellDef="let element"> 
-              {{element.period}} 
+                <div class="good" *ngIf="element.evaluation === 'good'">
+                    <mat-icon>thumb_up</mat-icon>
+                </div>
+                <div class="bad" *ngIf="element.evaluation === 'bad'">
+                    <mat-icon>thumb_down</mat-icon>
+                </div>
             </mat-cell>
         </ng-container>
 
