@@ -1,7 +1,32 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { map } from 'rxjs/operators';
+
+import { ActivitiesService } from '../service/activities.service';
+import { AlertDialogComponent } from '../alert-dialog/alert-dialog.component';
+
+interface Activity {
+  activityDate: string;
+  activityTime: string;
+  burnCalories: string;
+  ranDistance: string;
+}
+
+interface UpdateActivityBody {
+  activityTime: string;
+  burnedCalories: string;
+  ranDistance: string;
+}
+
+export interface data {
+  title: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-manage-activity',
@@ -10,22 +35,36 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 })
 export class ManageActivityComponent implements OnInit {
 
-  private activityDate: string;
-  private activityTime: string;
-  private burnedCalories: string;
-  private ranDistance: string;
+  activityDate: string;
+  activityTime: string;
+  burnedCalories: string;
+  ranDistance: string;
 
-  private disableField: boolean = true;
-  private disableSearchButton: boolean = true;
-  private disableUpdateButton: boolean = true;
+  disableField: boolean = true;
+  disableSearchButton: boolean = true;
+  disableUpdateButton: boolean = true;
   
-  constructor(private breakpointObserver: BreakpointObserver, private datePipe: DatePipe) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private datePipe: DatePipe,
+    private overlay: Overlay,
+    private dialog: MatDialog,
+    private activitiesService: ActivitiesService 
+  ) {}
+
+  overlayRef = this.overlay.create({
+    hasBackdrop: true,
+    positionStrategy: this.overlay
+      .position()
+      .global()
+      .centerHorizontally()
+      .centerVertically()
+  });
 
   ngOnInit(): void {
   }
 
   changeActivityDate(event: any) {
-    let date = this.datePipe.transform(this.activityDate, "yyyy-MM-dd").toString();
     this.disableSearchButton = false;
   }
 
@@ -38,20 +77,77 @@ export class ManageActivityComponent implements OnInit {
   }
 
   search() {
-    this.disableField = false;
+    this.overlayRef.attach(new ComponentPortal(MatSpinner));
+
+    let activityDate = this.datePipe.transform(this.activityDate, "yyyy-MM-dd").toString();
+    let response = this.activitiesService.getActivity(activityDate);
+    response.subscribe(
+      res => {
+        let activity = res as Activity;
+        this.disableField = false;
+        this.activityTime = activity["activityTime"];
+        this.burnedCalories = activity["burnedCalories"];
+        this.ranDistance = activity["ranDistance"];
+        this.disableUpdateButton = false;
+
+        this.overlayRef.detach();
+      },
+      err => {
+        this.overlayRef.detach();
+        if (err.status === 404) {
+          this.activityTime = "";
+          this.burnedCalories = "";
+          this.ranDistance = "";
+          this.disableField = true;
+          this.disableUpdateButton = true;
+          this.dialog.open(AlertDialogComponent, {
+            "data" : {"title": "エラー" , "message" : "活動記録が見つかりませんでした。"},
+            "width": "400px",
+          });
+        } else {
+          this.dialog.open(AlertDialogComponent, {
+            "data" : {"title": "システムエラー" , "message" : "システムエラーが発生しました。"},
+            "width": "400px",
+          });
+        }
+      }
+    );
   }
 
   update() {
-    
+    this.overlayRef.attach(new ComponentPortal(MatSpinner));
+
+    let activityDate = this.datePipe.transform(this.activityDate, "yyyy-MM-dd").toString();
+    let body: UpdateActivityBody = {
+      "activityTime": this.activityTime,
+      "burnedCalories": this.burnedCalories,
+      "ranDistance": this.ranDistance
+    };
+
+    let response = this.activitiesService.updateActivity(activityDate, body);
+    response.subscribe(
+      res => {
+        this.overlayRef.detach();
+        this.dialog.open(AlertDialogComponent, {
+          "data" : {"title": "更新完了" , "message" : "更新が完了しました。"},
+          "width": "400px",
+        });
+      },
+      err => {
+        this.overlayRef.detach();
+        this.dialog.open(AlertDialogComponent, {
+          "data" : {"title": "システムエラー" , "message" : "システムエラーが発生しました。"},
+          "width": "400px",
+        });
+      }
+    );
   }
-
-
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(() => {
       return [
-        { title: '1. 活動記録/検索', cols: 2, rows: 1 },
-        { title: '2. 活動記録/更新', cols: 2, rows: 1 },
+        { title: '活動記録/検索', cols: 2, rows: 1 },
+        { title: '活動記録/更新', cols: 2, rows: 1 },
       ];
     })
   );

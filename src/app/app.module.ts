@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChartsModule } from 'ng2-charts';
@@ -33,6 +34,7 @@ import { ReportActivityComponent } from './report-activity/report-activity.compo
 
 import { DataService } from './app.data.service';
 import { ManageActivityComponent } from './manage-activity/manage-activity.component';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
  
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ManageActivityComponent } from './manage-activity/manage-activity.compo
     ChartBurnedCaloriesComponent,
     ChartRanDistanceComponent,
     ReportActivityComponent,
-    ManageActivityComponent
+    ManageActivityComponent,
+    AlertDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { ManageActivityComponent } from './manage-activity/manage-activity.compo
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     OverlayModule,
     LayoutModule,
     ChartsModule
@@ -72,6 +76,7 @@ import { ManageActivityComponent } from './manage-activity/manage-activity.compo
     DatePipe,
     DataService
   ],
-  bootstrap: [AppComponent]
+  entryComponents: [AlertDialogComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
