@@ -40,7 +40,7 @@ export class ManageActivityComponent implements OnInit {
   burnedCalories: string;
   ranDistance: string;
 
-  activityTimePattern: string = "^(([1-9][0-9]|[1-9])時間([1-5][0-9]|[1-9])分([1-5][0-9]|[0-9])秒)$|^(([1-5][0-9]|[1-9])分([1-5][0-9]|[0-9])秒)$";
+  activityTimePattern: string = "^(([1-9][0-9]|[1-9])時間([1-5][0-9]|[0-9])分([1-5][0-9]|[0-9])秒)$|^(([1-5][0-9]|[1-9])分([1-5][0-9]|[0-9])秒)$";
   burnedCaloriesPattern: string = "^[0-9]*\.[0-9]{2}kcal$";
   ranDistancePattern: string = "^[0-9]*\.[0-9]{2}km$";
 
