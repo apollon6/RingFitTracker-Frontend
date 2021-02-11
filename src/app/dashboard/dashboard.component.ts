@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
@@ -36,10 +37,17 @@ interface Activities {
 })
 export class DashboardComponent implements OnInit {
 
-  private showReport: boolean = false;
-  private showAcitivityTime: boolean = false;
-  private showBurnedCalories: boolean = false;
-  private showRanDistance: boolean = false;
+  showReport: boolean = false;
+  showAcitivityTime: boolean = false;
+  showBurnedCalories: boolean = false;
+  showRanDistance: boolean = false;
+
+  cards = [
+    { title: '活動レポート', cols: 1, rows: 2 },
+    { title: '活動時間', cols: 1, rows: 2 },
+    { title: '消費カロリー', cols: 1, rows: 2 },
+    { title: '走行距離', cols: 1, rows: 2 }
+  ];
 
   constructor(
     private breakpointObserver: BreakpointObserver, 
@@ -119,14 +127,8 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(() => {
-      return [
-        { title: '活動レポート', cols: 1, rows: 2 },
-        { title: '活動時間', cols: 1, rows: 2 },
-        { title: '消費カロリー', cols: 1, rows: 2 },
-        { title: '走行距離', cols: 1, rows: 2 }
-      ];
-    })
-  );
+  delete(card): void {
+    const index = this.cards.indexOf(card);
+    this.cards.splice(index, 1);
+  }
 }

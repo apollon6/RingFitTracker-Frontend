@@ -13,3 +13,9 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.remove-button {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+}
